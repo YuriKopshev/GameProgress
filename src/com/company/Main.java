@@ -5,76 +5,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    public static String mainPath = File.separator + "home" + File.separator + "yuri" + File.separator + "Рабочий стол" + File.separator + "Games";
+    private static StringBuilder log = new StringBuilder();
+
+    private static void createCatalog(String name) {
+        File file = new File(mainPath + File.separator + name);
+        if (file.mkdir()) {
+            log.append("Каталог ").append(name).append(" создан").append('\n');
+        }
+    }
+
+    private static void createFile(String name) {
+        File file = new File(mainPath + File.separator + name);
+        try {
+            if (file.createNewFile()) {
+                log.append("Файл ").append(name).append(" создан").append('\n');
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void main(String[] args) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        File src = new File("/home/yuri/Рабочий стол/Games/src");
-        if (src.mkdir()) {
-            stringBuilder.append("Каталог src создан" + '\n');
-        }
-        File res = new File("/home/yuri/Рабочий стол/Games/res");
-        if (res.mkdir()) {
-            stringBuilder.append("Каталог res создан" + '\n');
-        }
-        File savegames = new File("/home/yuri/Рабочий стол/Games/savegames");
-        if (savegames.mkdir()) {
-            stringBuilder.append("Каталог savegames создан" + '\n');
-        }
-        File temp = new File("/home/yuri/Рабочий стол/Games/temp");
-        if (temp.mkdir()) {
-            stringBuilder.append("Каталог temp создан" + '\n');
-        }
-        File file1 = new File("/home/yuri/Рабочий стол/Games/src/main");
-        if (file1.mkdir()) {
-            stringBuilder.append("Каталог main создан" + '\n');
-        }
-        File file2 = new File("/home/yuri/Рабочий стол/Games/src/java");
-        if (file2.mkdir()) {
-            stringBuilder.append("Каталог java создан" + '\n');
-        }
-        File file3 = new File("/home/yuri/Рабочий стол/Games/src/main/Main.java");
-        try {
-            if (file3.createNewFile()) {
-                stringBuilder.append("Файл Main.java создан" + '\n');
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        File file4 = new File("/home/yuri/Рабочий стол/Games/src/main/Utils.java");
-        try {
-            if (file4.createNewFile()) {
-                stringBuilder.append("Файл Utils.java создан" + '\n');
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        File fileRes1 = new File("/home/yuri/Рабочий стол/Games/res/vectors");
-        if (fileRes1.mkdir()) {
-            stringBuilder.append("Каталог vectors  в каталоге res создан" + '\n');
-        }
-        File fileRes2 = new File("/home/yuri/Рабочий стол/Games/res/icons");
-        if (fileRes2.mkdir()) {
-            stringBuilder.append("Каталог icons  в каталоге res создан" + '\n');
-        }
-        File drawables = new File("/home/yuri/Рабочий стол/Games/res/drawables");
-        if (drawables.mkdir()) {
-            stringBuilder.append("Каталог drawables в каталоге res создан" + '\n');
-        }
-        File file5 = new File("/home/yuri/Рабочий стол/Games/temp/temp.txt");
-        try {
-            if (file5.createNewFile()) {
-                stringBuilder.append("Файл temp.java создан" + '\n');
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Main.createCatalog("src");
+        Main.createCatalog("res");
+        Main.createCatalog("savegames");
+        Main.createCatalog("temp");
+        Main.createCatalog("src/main");
+        Main.createCatalog("src/test");
+        Main.createFile("src/main/Main.java");
+        Main.createFile("src/main/Utils.java");
+        Main.createCatalog("res/vectors");
+        Main.createCatalog("res/icons");
+        Main.createCatalog("res/drawables");
+        Main.createFile("temp/temp.txt");
 
         //запись сведений в файл temp
         try (FileWriter fileWriter = new FileWriter("/home/yuri/Рабочий стол/Games/temp/temp.txt")) {
-            fileWriter.write(String.valueOf(stringBuilder));
+            fileWriter.write(String.valueOf(log));
             fileWriter.flush();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
